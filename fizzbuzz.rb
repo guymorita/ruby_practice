@@ -60,58 +60,67 @@ def root(x,y)
 	x**(1/y)
 end
 
+def valid_op
+	arr = ["add", "subtract", "multiply", "divide", "exponent", "root"]
+	if arr.include?(@operator) == false
+		puts "Please put in a valid operator"
+		calcit
+	end
+end
+
+def valid_num
+	if @first == 0.0 || @second == 0.0
+		puts "Sorry you need to put in numbers greater than 0"
+		calcit
+	end
+end
+
 def standard
 	puts "which operator? add, subtract, multiply, divide"
-	operator = gets.chomp.downcase
+	@operator = gets.chomp.downcase
 	puts "first number"
-	first = gets.chomp.to_f
+	@first = gets.chomp.to_f
 	puts "second number"
-	second = gets.chomp.to_f
-	if first == 0.0 || second == 0.0
-		puts "Sorry you need to put in numbers"
-		standard
+	@second = gets.chomp.to_f
+	valid_op
+	valid_num
+	case @operator
+	when "add"
+		add(@first,@second)
+	when "subtract"
+		subtract(@first,@second)
+	when "multiply"
+		multiply(@first,@second)
+	when "divide"
+		divide(@first,@second)
 	else
-		case operator
-		when "add"
-			add(first,second)
-		when "subtract"
-			subtract(first,second)
-		when "multiply"
-			multiply(first,second)
-		when "divide"
-			divide(first,second)
-		else
-			puts "Please try again"
-			standard
-		end
+		puts "Please try again"
+		standard
 	end
 end
 
 def advanced
 	puts "which operator? exponent, squareroot"
-	operator = gets.chomp.downcase
+	@operator = gets.chomp.downcase
 	puts "first number"
-	first = gets.chomp.to_f
+	@first = gets.chomp.to_f
 	puts "second number"
-	second = gets.chomp.to_f
-	if first == 0.0 || second == 0.0
-		puts "Sorry you need to put in numbers"
-		advanced
+	@second = gets.chomp.to_f
+	valid_op
+	valid_num
+	case @operator
+	when "exponent"
+		expo(@first, @second)
+	when "root"
+		root(@first, @second)
 	else
-		case operator
-		when "exponent"
-			expo(first, second)
-		when "root"
-			root(first, second)
-		else
-			puts "Please try again"
-			advanced
-		end
+		puts "Please try again"
+		advanced
 	end
 end
 
 def calcit
-	puts "Welcome to the CalcIt"
+	puts "Welcome to the calcit"
 	puts "Enter '1' if you want standard"
 	puts "Enter '2' if you want advanced"
 	input = gets.chomp.to_i
